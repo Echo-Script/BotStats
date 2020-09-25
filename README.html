@@ -1,0 +1,57 @@
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+<script>
+function generatecode() {
+var url = document.getElementById("websiteinput").value;
+var text = document.getElementById("codebox").value;
+var generated = text.replace("yourwebsite.com", url);
+document.getElementById("codebox").innerHTML = generated;
+}
+</script>
+<style>
+html {
+font-family: 'Quicksand', sans-serif;
+}
+</style>
+</head>
+<body>
+<h1>Bot Stats Panel</h1>
+<h2><b>ABOUT THIS PROJECT:</b></h2>
+<p>This project is <b>fully</b> open sourced, it is designed to help developers monitor the resources being used by their bot. This panel has been made by Steel#7777.</p>
+
+<h2><b>SETUP:</b></h2>
+<p>1 - Edit the URL in "index.html" to the URL of your website, ignore the 2nd variable.</p>
+<p>2 - In the file called ".htpasswd" add in a <a href="https://hostingcanada.org/htpasswd-generator/">Bcrypt Username & Password.</a></p>
+<p>3 - Upload the files to a host that supports PHP.</p>
+<p><b>Please type the domain you would like to use this panel on, then click the button.</b></p>
+<input id="websiteinput" placeholder="https://example.com" style="margin: 0px; width: 325px; height: 22px;">
+<button onclick="generatecode()">Generate Code</button>
+<p>4 - Add the following code to your Discord Bot:</p>
+<textarea id="codebox" style="margin: 0px; width: 896px; height: 340px;">client.on(`ready`, function() {
+    const url = 'https://yourwebsite.com/send-stats.php';
+    const request = url + '?ud=${up_day}&uh=${up_hour}&um=${up_min}&ram=${ram}&ping=${ping}&guilds=${guilds}&users=${users}&ran=${commands}';   
+var interval = setInterval (function () {
+            var up_day = Math.floor((process.uptime() % 31536000) / 86400);
+            var up_hour = Math.floor((process.uptime() % 86400) / 3600);
+            var up_min = Math.floor((process.uptime() % 3600) / 60);
+            var ping = '${Math.round(client.ws.ping)}';
+            var ram = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
+            var guilds = client.guilds.cache.size;
+            var users = client.users.cache.size;
+            var commands = 50;
+fetch(request)
+.then(res => res.json())
+.then((out) => {
+  console.log('Stats sent to web panel!');
+})
+.catch(err => { throw err });
+
+ }, 1 * 1000); 
+});</textarea>
+<p>And that's it! Your stats will automatically post to the panel every 60 seconds, providing you with statistics for your bot. If you have any issues, please join the <a href="https://discord.gg/FfaArQG">Discord Server</a>.</p>
+<p><b>PLEASE NOTE:</b> You MAY have to change the directory of the .htpasswd file in ".htaccess"</p>
+</body>
+</html>
+
+
