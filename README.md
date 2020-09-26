@@ -5,5 +5,7 @@ This project is **fully** open sourced, it is designed to help developers monito
 **PLEASE NOTE:** You MAY have to change the directory of the .htpasswd file in ".htaccess"
 
 
+Once setup, you can access your panel at: [https://yourdomain.com/admin/stats](https://yourdomain.com/admin/stats)
+
 
 
